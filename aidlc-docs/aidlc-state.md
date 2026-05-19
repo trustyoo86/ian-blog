@@ -4,7 +4,7 @@
 - **Project Name**: ian-blog
 - **Project Type**: Greenfield
 - **Start Date**: 2026-03-14T00:00:00Z
-- **Current Stage**: CONSTRUCTION - Code Generation (blog-v2) Phase G~J 완료, Phase K 대기
+- **Current Stage**: CONSTRUCTION - Code Generation (design-refresh 완료, 사용자 리뷰 대기)
 
 ## Workspace State
 - **Existing Code**: No (at start)
@@ -38,6 +38,7 @@
 - [-] NFR Design — SKIPPED (folded into Infra Design)
 - [-] Infrastructure Design — PENDING (Terraform + GitHub Actions)
 - [>] Code Generation — IN PROGRESS (blog-v2 하이브리드)
+  - [x] Design Refresh: `.claude/DESIGN.md` Ordered Editorial Ink UI 반영 (홈/헤더/푸터/포스트 목록)
   - [x] Phase A: Project bootstrap (package.json, tsconfig, next.config, tailwind, postcss, .env.example, .gitignore)
   - [x] Phase B: Foundation (globals.css, types/index.ts, lib/utils.ts)
   - [x] Phase C: Notion data layer (client.ts, queries.ts, renderer.ts) — Phase I에서 어댑터로 리팩터링 완료
@@ -60,6 +61,6 @@
 
 ## Current Status
 - **Lifecycle Phase**: CONSTRUCTION
-- **Current Stage**: NFR Requirements Complete (blog-v2) — Approval Pending
-- **Next Stage**: Infrastructure Design (승인 시)
+- **Current Stage**: Code Generation Complete (design-refresh) — Review Pending
+- **Next Stage**: blog-v2 Phase K Blog 라우트 또는 추가 디자인 수정
 - **Branch**: docs/project-constitution
