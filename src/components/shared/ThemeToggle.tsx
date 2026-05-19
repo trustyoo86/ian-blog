@@ -1,31 +1,33 @@
-'use client'
+"use client";
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from "react";
 
 export function ThemeToggle() {
-  const [isDark, setIsDark] = useState(false)
+  const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
-    const stored = localStorage.getItem('theme')
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-    const dark = stored === 'dark' || (!stored && prefersDark)
-    setIsDark(dark)
-    document.documentElement.classList.toggle('dark', dark)
-  }, [])
+    const stored = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)",
+    ).matches;
+    const dark = stored === "dark" || (!stored && prefersDark);
+    setIsDark(dark);
+    document.documentElement.classList.toggle("dark", dark);
+  }, []);
 
   function toggle() {
-    const next = !isDark
-    setIsDark(next)
-    document.documentElement.classList.toggle('dark', next)
-    localStorage.setItem('theme', next ? 'dark' : 'light')
+    const next = !isDark;
+    setIsDark(next);
+    document.documentElement.classList.toggle("dark", next);
+    localStorage.setItem("theme", next ? "dark" : "light");
   }
 
   return (
     <button
       onClick={toggle}
-      aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+      aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
       data-testid="theme-toggle"
-      className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+      className="rounded-[3px] p-2 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
     >
       {isDark ? (
         // Sun icon
@@ -62,5 +64,5 @@ export function ThemeToggle() {
         </svg>
       )}
     </button>
-  )
+  );
 }
