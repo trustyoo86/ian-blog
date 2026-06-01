@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1778169458157,
+  "lastScanned": 1780322461816,
   "projectRoot": "/Users/ian/workspace/ian-blog",
   "techStack": {
     "languages": [
@@ -78,25 +78,43 @@
       "path": "aidlc-docs",
       "purpose": null,
       "fileCount": 3,
-      "lastAccessed": 1778169458105,
+      "lastAccessed": 1780322461806,
       "keyFiles": [
         "aidlc-state.md",
         "audit.md",
         "project-constitution.md"
       ]
     },
+    "content": {
+      "path": "content",
+      "purpose": null,
+      "fileCount": 0,
+      "lastAccessed": 1780322461807,
+      "keyFiles": []
+    },
+    "out": {
+      "path": "out",
+      "purpose": "Build output",
+      "fileCount": 3,
+      "lastAccessed": 1780322461807,
+      "keyFiles": [
+        "404.html",
+        "index.html",
+        "index.txt"
+      ]
+    },
     "src": {
       "path": "src",
       "purpose": "Source code",
       "fileCount": 0,
-      "lastAccessed": 1778169458105,
+      "lastAccessed": 1780322461808,
       "keyFiles": []
     },
     "src/app": {
       "path": "src/app",
       "purpose": "Application code",
       "fileCount": 2,
-      "lastAccessed": 1778169458107,
+      "lastAccessed": 1780322461809,
       "keyFiles": [
         "layout.tsx",
         "page.tsx"
@@ -106,14 +124,14 @@
       "path": "src/components",
       "purpose": "UI components",
       "fileCount": 0,
-      "lastAccessed": 1778169458107,
+      "lastAccessed": 1780322461809,
       "keyFiles": []
     },
     "src/lib": {
       "path": "src/lib",
       "purpose": "Library code",
       "fileCount": 1,
-      "lastAccessed": 1778169458107,
+      "lastAccessed": 1780322461809,
       "keyFiles": [
         "utils.ts"
       ]
@@ -122,7 +140,7 @@
       "path": "src/types",
       "purpose": "Type definitions",
       "fileCount": 1,
-      "lastAccessed": 1778169458107,
+      "lastAccessed": 1780322461809,
       "keyFiles": [
         "index.ts"
       ]
@@ -148,9 +166,39 @@
       "type": "file"
     },
     {
+      "path": "src/types/index.ts",
+      "accessCount": 6,
+      "lastAccessed": 1780323851963,
+      "type": "file"
+    },
+    {
       "path": ".claude/CLAUDE.md",
       "accessCount": 5,
       "lastAccessed": 1776006237124,
+      "type": "file"
+    },
+    {
+      "path": "package.json",
+      "accessCount": 5,
+      "lastAccessed": 1780322946871,
+      "type": "file"
+    },
+    {
+      "path": "src/lib/content/adapters/markdown-adapter.ts",
+      "accessCount": 4,
+      "lastAccessed": 1780322954558,
+      "type": "file"
+    },
+    {
+      "path": "src/app/page.tsx",
+      "accessCount": 4,
+      "lastAccessed": 1780322971258,
+      "type": "file"
+    },
+    {
+      "path": "src/styles/globals.css",
+      "accessCount": 4,
+      "lastAccessed": 1780323852250,
       "type": "file"
     },
     {
@@ -166,9 +214,45 @@
       "type": "file"
     },
     {
-      "path": "package.json",
+      "path": "src/lib/content/repository.ts",
       "accessCount": 3,
-      "lastAccessed": 1778170709836,
+      "lastAccessed": 1780322946018,
+      "type": "file"
+    },
+    {
+      "path": "src/lib/content/adapters/notion-adapter.ts",
+      "accessCount": 3,
+      "lastAccessed": 1780322954093,
+      "type": "file"
+    },
+    {
+      "path": "src/components/blog/PostCard.tsx",
+      "accessCount": 3,
+      "lastAccessed": 1780322955473,
+      "type": "file"
+    },
+    {
+      "path": "src/lib/content/types.ts",
+      "accessCount": 3,
+      "lastAccessed": 1780322961476,
+      "type": "file"
+    },
+    {
+      "path": "src/lib/content/normalize.ts",
+      "accessCount": 3,
+      "lastAccessed": 1780322961888,
+      "type": "file"
+    },
+    {
+      "path": "src/lib/utils.ts",
+      "accessCount": 3,
+      "lastAccessed": 1780322962838,
+      "type": "file"
+    },
+    {
+      "path": "content/posts/welcome-to-blog.md",
+      "accessCount": 3,
+      "lastAccessed": 1780323404324,
       "type": "file"
     },
     {
@@ -184,27 +268,51 @@
       "type": "file"
     },
     {
-      "path": "src/types/index.ts",
-      "accessCount": 2,
-      "lastAccessed": 1778170607715,
-      "type": "file"
-    },
-    {
-      "path": "src/app/page.tsx",
-      "accessCount": 2,
-      "lastAccessed": 1778170707614,
-      "type": "file"
-    },
-    {
-      "path": "src/lib/content/adapters/markdown-adapter.ts",
-      "accessCount": 2,
-      "lastAccessed": 1778171376293,
-      "type": "file"
-    },
-    {
       "path": "aidlc-docs/construction/plans/blog-v2-code-generation-plan.md",
       "accessCount": 2,
       "lastAccessed": 1778171445478,
+      "type": "file"
+    },
+    {
+      "path": "tailwind.config.ts",
+      "accessCount": 2,
+      "lastAccessed": 1780322955959,
+      "type": "file"
+    },
+    {
+      "path": "src/app/layout.tsx",
+      "accessCount": 2,
+      "lastAccessed": 1780322970725,
+      "type": "file"
+    },
+    {
+      "path": "src/components/blog/TagBadge.tsx",
+      "accessCount": 2,
+      "lastAccessed": 1780323611917,
+      "type": "file"
+    },
+    {
+      "path": "src/lib/content/markdown-render.ts",
+      "accessCount": 2,
+      "lastAccessed": 1780323849005,
+      "type": "file"
+    },
+    {
+      "path": "src/components/blog/TableOfContents.tsx",
+      "accessCount": 2,
+      "lastAccessed": 1780323850473,
+      "type": "file"
+    },
+    {
+      "path": "src/components/blog/MarkdownContent.tsx",
+      "accessCount": 2,
+      "lastAccessed": 1780323850958,
+      "type": "file"
+    },
+    {
+      "path": "src/components/blog/PostHeader.tsx",
+      "accessCount": 2,
+      "lastAccessed": 1780323851010,
       "type": "file"
     },
     {
@@ -316,45 +424,9 @@
       "type": "file"
     },
     {
-      "path": "src/lib/utils.ts",
-      "accessCount": 1,
-      "lastAccessed": 1778170489880,
-      "type": "file"
-    },
-    {
       "path": "aidlc-docs/construction/blog-v2/notion-setup-guide.md",
       "accessCount": 1,
       "lastAccessed": 1778170552899,
-      "type": "file"
-    },
-    {
-      "path": "src/lib/content/types.ts",
-      "accessCount": 1,
-      "lastAccessed": 1778170615738,
-      "type": "file"
-    },
-    {
-      "path": "src/lib/content/adapters/notion-adapter.ts",
-      "accessCount": 1,
-      "lastAccessed": 1778170664539,
-      "type": "file"
-    },
-    {
-      "path": "src/lib/content/normalize.ts",
-      "accessCount": 1,
-      "lastAccessed": 1778170685354,
-      "type": "file"
-    },
-    {
-      "path": "src/lib/content/repository.ts",
-      "accessCount": 1,
-      "lastAccessed": 1778170695666,
-      "type": "file"
-    },
-    {
-      "path": "src/components/blog/PostCard.tsx",
-      "accessCount": 1,
-      "lastAccessed": 1778170701581,
       "type": "file"
     },
     {
@@ -364,15 +436,15 @@
       "type": "file"
     },
     {
-      "path": "content/posts/welcome-to-blog.md",
-      "accessCount": 1,
-      "lastAccessed": 1778170714721,
-      "type": "file"
-    },
-    {
       "path": ".eslintrc.json",
       "accessCount": 1,
       "lastAccessed": 1778171357010,
+      "type": "file"
+    },
+    {
+      "path": "next.config.js",
+      "accessCount": 1,
+      "lastAccessed": 1780322945557,
       "type": "file"
     }
   ],
