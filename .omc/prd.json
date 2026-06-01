@@ -1,0 +1,86 @@
+{
+  "title": "블로그 상세 화면 /blog/[slug] 구현",
+  "planPath": ".omc/plans/blog-detail-page.md",
+  "stories": [
+    {
+      "id": "US-001",
+      "title": "Markdown 렌더 의존성 설치 (버전 핀)",
+      "priority": 1,
+      "passes": true,
+      "acceptanceCriteria": [
+        "package.json dependencies에 @shikijs/rehype(^1.29), rehype-slug(^6), rehype-stringify(^10), hast-util-to-string(^3), unist-util-visit(^5)가 추가됨",
+        "unified, remark-parse, remark-rehype가 직접 의존(또는 기존 11.x 재사용)으로 사용 가능",
+        "yarn why shiki 결과 shiki가 1.x 단일 메이저만 존재 (v4 중복 없음)"
+      ]
+    },
+    {
+      "id": "US-002",
+      "title": "TocItem 타입 + markdown-render.ts (unified 파이프라인)",
+      "priority": 2,
+      "passes": true,
+      "acceptanceCriteria": [
+        "src/types/index.ts에 TocItem { id: string; text: string; depth: 2 | 3 } export 추가",
+        "src/lib/content/markdown-render.ts가 renderMarkdown(content): Promise<{ html: string; toc: TocItem[] }> export",
+        "파이프라인 순서: remark-parse → remark-gfm → (H1→H2 demote) → remark-rehype(allowDangerousHtml:true) → rehype-raw → rehype-slug → @shikijs/rehype(defaultColor:false) → (TOC collect) → rehype-stringify(allowDangerousHtml:true)",
+        "본문의 leading # H1이 출력 HTML에서 <h2>로 데모트됨",
+        "TOC 수집은 hast-util-to-string으로 h2/h3의 깊은 텍스트와 id를 추출 (inline code 포함 heading도 텍스트 보존)",
+        "fenced code block이 .shiki 클래스 + --shiki/--shiki-dark CSS 변수를 포함하는 HTML로 변환됨",
+        "yarn type-check 통과"
+      ]
+    },
+    {
+      "id": "US-003",
+      "title": "상세 UI 컴포넌트 (PostHeader, MarkdownContent, TableOfContents)",
+      "priority": 3,
+      "passes": true,
+      "acceptanceCriteria": [
+        "src/components/blog/PostHeader.tsx: 커버이미지(있을 때만 next/image), 카테고리, h1 제목, 발행일(formatDate), readingTime 가드 렌더, 태그(TagBadge href=/tags/...)",
+        "src/components/blog/MarkdownContent.tsx: { html } 받아 prose dark:prose-invert 컨테이너에 dangerouslySetInnerHTML 주입",
+        "src/components/blog/TableOfContents.tsx: items 비면 null, 아니면 h2/h3 들여쓰기 앵커(href=#id) 리스트",
+        "모든 컴포넌트가 기존 스타일/패턴(PostCard, cn 등)과 일관",
+        "yarn type-check 통과"
+      ]
+    },
+    {
+      "id": "US-004",
+      "title": "동적 라우트 /blog/[slug]/page.tsx + not-found",
+      "priority": 4,
+      "passes": true,
+      "acceptanceCriteria": [
+        "src/app/blog/[slug]/page.tsx 생성: async Server Component",
+        "generateStaticParams가 getAllSlugs() 기반으로 모든 slug 반환, dynamicParams=false",
+        "generateMetadata가 title/description/openGraph(type:article, images:[coverImage])/twitter 생성, null이면 최소 메타",
+        "Page: getPostBySlug(decodeURIComponent(slug)) → null이면 notFound(), 아니면 renderMarkdown 후 PostHeader+TOC+MarkdownContent 렌더",
+        "TOC null일 때 article이 전체폭으로 reflow (빈 거터 없음)",
+        "src/app/blog/[slug]/not-found.tsx 생성 (홈 / 링크만)",
+        "yarn type-check 통과"
+      ]
+    },
+    {
+      "id": "US-005",
+      "title": "globals.css shiki 듀얼테마 + prose 보정",
+      "priority": 5,
+      "passes": true,
+      "acceptanceCriteria": [
+        "src/styles/globals.css에 .shiki/.dark .shiki 변수 토글 규칙 추가 (--shiki/--shiki-dark, --shiki-bg/--shiki-dark-bg)",
+        "prose pre 기본 배경/패딩이 shiki와 충돌하지 않도록 보정 규칙 추가",
+        "실제 빌드 산출 HTML의 변수명과 CSS 셀렉터가 일치"
+      ]
+    },
+    {
+      "id": "US-006",
+      "title": "전체 검증 (build/lint/type-check + 산출물 확인)",
+      "priority": 6,
+      "passes": true,
+      "acceptanceCriteria": [
+        "yarn type-check 오류 0",
+        "yarn lint 오류 0",
+        "yarn build 성공, out/blog/welcome-to-blog/index.html 생성됨",
+        "산출 HTML에 <h1>이 정확히 1개 (본문 # Welcome은 h2로 데모트)",
+        "산출 HTML에 class=\"shiki 문자열 존재 (코드 하이라이트 적용)",
+        "산출 HTML에 --shiki-dark 변수 존재 (defaultColor:false 적용)",
+        "TOC 앵커 href=#id가 본문 heading id와 일치"
+      ]
+    }
+  ]
+}

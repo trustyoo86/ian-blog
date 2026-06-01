@@ -1,0 +1,27 @@
+# Progress — 블로그 상세 화면 /blog/[slug]
+
+Plan: .omc/plans/blog-detail-page.md (Critic REVISE 반영 완료)
+
+## Codebase patterns (learned)
+- Content layer DONE: getPostBySlug/getAllSlugs in src/lib/content/repository.ts; both adapters populate `content` on getPostBySlug.
+- next.config.js: output:'export' (static), images.unoptimized:true, trailingSlash:true, CSP style-src unsafe-inline OK for shiki.
+- shiki resolved version: 1.29.2 → @shikijs/rehype pinned ^1.29.
+- Sample post content/posts/welcome-to-blog.md: has `# Welcome` H1 (needs demote), `## 지원 블록` H2, ts code block, blockquote, empty coverImage.
+- Components use cn() from src/lib/utils, TagBadge href=/tags/<tag>, next/image for cover (PostCard pattern), formatDate from utils.
+- prose typography configured in tailwind.config.ts with CSS-var colors (dark via class).
+
+## Iteration log
+(iteration 1) PRD + state + progress created. Deps install kicked off (bg). Implementing US-001..US-006.
+
+(iteration 1 cont.) IMPLEMENTED all stories US-001..US-006.
+Files: src/types/index.ts(+TocItem), src/lib/content/markdown-render.ts(new),
+  src/components/blog/{PostHeader,MarkdownContent,TableOfContents}.tsx(new),
+  src/app/blog/[slug]/{page,not-found}.tsx(new), src/styles/globals.css(+shiki dual theme).
+Verified (fresh): type-check OK, lint OK (only pre-existing headers/export warning),
+  yarn build OK exit0 → 2 SSG pages (welcome-to-blog, hello-notion-blog).
+  out/blog/welcome-to-blog/index.html: <h1> count=1 (body # Welcome demoted to <h2 id="welcome">),
+  class="shiki shiki-themes github-light github-dark", --shiki-dark var present,
+  TOC href="#welcome"/"#지원-블록" match heading ids (Korean slug works), og:type=article.
+Learnings: shiki defaultColor:false emits --shiki-light/-dark(+ -bg) keyed by theme names.
+  rehype-slug handles non-ASCII (Korean) heading ids consistently → TOC anchors match.
+  A second post hello-notion-blog also builds (Notion or extra source configured).
