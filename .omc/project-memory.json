@@ -1,6 +1,10 @@
 {
   "version": "1.0.0",
+<<<<<<< HEAD
   "lastScanned": 1780322461816,
+=======
+  "lastScanned": 1779203466075,
+>>>>>>> main
   "projectRoot": "/Users/ian/workspace/ian-blog",
   "techStack": {
     "languages": [
@@ -78,7 +82,11 @@
       "path": "aidlc-docs",
       "purpose": null,
       "fileCount": 3,
+<<<<<<< HEAD
       "lastAccessed": 1780322461806,
+=======
+      "lastAccessed": 1779203466063,
+>>>>>>> main
       "keyFiles": [
         "aidlc-state.md",
         "audit.md",
@@ -89,14 +97,22 @@
       "path": "content",
       "purpose": null,
       "fileCount": 0,
+<<<<<<< HEAD
       "lastAccessed": 1780322461807,
+=======
+      "lastAccessed": 1779203466063,
+>>>>>>> main
       "keyFiles": []
     },
     "out": {
       "path": "out",
       "purpose": "Build output",
       "fileCount": 3,
+<<<<<<< HEAD
       "lastAccessed": 1780322461807,
+=======
+      "lastAccessed": 1779203466064,
+>>>>>>> main
       "keyFiles": [
         "404.html",
         "index.html",
@@ -107,14 +123,22 @@
       "path": "src",
       "purpose": "Source code",
       "fileCount": 0,
+<<<<<<< HEAD
       "lastAccessed": 1780322461808,
+=======
+      "lastAccessed": 1779203466065,
+>>>>>>> main
       "keyFiles": []
     },
     "src/app": {
       "path": "src/app",
       "purpose": "Application code",
       "fileCount": 2,
+<<<<<<< HEAD
       "lastAccessed": 1780322461809,
+=======
+      "lastAccessed": 1779203466066,
+>>>>>>> main
       "keyFiles": [
         "layout.tsx",
         "page.tsx"
@@ -124,14 +148,22 @@
       "path": "src/components",
       "purpose": "UI components",
       "fileCount": 0,
+<<<<<<< HEAD
       "lastAccessed": 1780322461809,
+=======
+      "lastAccessed": 1779203466066,
+>>>>>>> main
       "keyFiles": []
     },
     "src/lib": {
       "path": "src/lib",
       "purpose": "Library code",
       "fileCount": 1,
+<<<<<<< HEAD
       "lastAccessed": 1780322461809,
+=======
+      "lastAccessed": 1779203466066,
+>>>>>>> main
       "keyFiles": [
         "utils.ts"
       ]
@@ -140,12 +172,17 @@
       "path": "src/types",
       "purpose": "Type definitions",
       "fileCount": 1,
+<<<<<<< HEAD
       "lastAccessed": 1780322461809,
+=======
+      "lastAccessed": 1779203466066,
+>>>>>>> main
       "keyFiles": [
         "index.ts"
       ]
     }
   },
+<<<<<<< HEAD
   "hotPaths": [
     {
       "path": "aidlc-docs/audit.md",
@@ -448,5 +485,8 @@
       "type": "file"
     }
   ],
+=======
+  "hotPaths": [],
+>>>>>>> main
   "userDirectives": []
 }

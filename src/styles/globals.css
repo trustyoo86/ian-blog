@@ -2,48 +2,58 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ─── Design Tokens ─── */
+/* Design Tokens */
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --border: 214.3 31.8% 91.4%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --radius: 0.5rem;
+    --background: 220 13% 91%;
+    --foreground: 221 39% 11%;
+    --primary: 215 25% 14%;
+    --primary-foreground: 220 13% 91%;
+    --muted: 210 8% 86%;
+    --muted-foreground: 210 7% 41%;
+    --border: 210 4% 78%;
+    --card: 220 13% 91%;
+    --card-foreground: 221 39% 11%;
+    --radius: 3px;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --border: 217.2 32.6% 17.5%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --background: 220 14% 10%;
+    --foreground: 220 13% 91%;
+    --primary: 220 13% 91%;
+    --primary-foreground: 220 14% 10%;
+    --muted: 220 10% 18%;
+    --muted-foreground: 220 8% 68%;
+    --border: 220 8% 28%;
+    --card: 220 14% 10%;
+    --card-foreground: 220 13% 91%;
   }
 }
 
-/* ─── Base Styles ─── */
+/* Base Styles */
 @layer base {
   * {
     @apply border-border;
   }
 
-  body {
-    @apply bg-background text-foreground;
-    font-feature-settings: 'rlig' 1, 'calt' 1;
-  }
-
-  /* Smooth theme transition */
   html {
     @apply transition-colors duration-200;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-background font-sans text-foreground antialiased;
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
+  }
+
+  ::selection {
+    @apply bg-foreground text-background;
+  }
+
+  a {
+    text-underline-offset: 0.2em;
   }
 }
 
