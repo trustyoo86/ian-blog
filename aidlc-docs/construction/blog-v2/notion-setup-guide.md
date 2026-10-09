@@ -245,3 +245,30 @@ yarn build
 - Secret 노출 통제: `.env.local` 로컬, GitHub Secrets 운영
 - 클라이언트 번들 노출 차단: `NEXT_PUBLIC_` 접두사 금지
 - DB 접근 범위: `Blog Posts` DB만 공유 (다른 페이지 접근 차단)
+
+---
+
+## 부록 C: AI 웹 개발 기술 브리핑 DB 연동
+
+`my-ai-researches / AI Web Dev Researches` 데이터베이스의 브리핑 페이지도 블로그 글로 함께 노출됩니다 (`notionBriefingAdapter`).
+
+1. 해당 DB → `...` → **Connections** → `ian-blog` Integration 추가
+2. `.env.local`에 DB ID 추가
+   ```bash
+   NOTION_BRIEFING_DATABASE_ID=93a6f8f104a7477889f366ddb2784b37
+   # 선택: 노출할 Status 목록 (기본값 Researched,Published)
+   NOTION_BRIEFING_STATUSES=Researched,Published
+   ```
+
+| 블로그 필드 | 브리핑 DB 속성 |
+|---|---|
+| title | Name |
+| slug | Slug (비어 있으면 제외) |
+| description | Description |
+| category | Category |
+| tags | Tags |
+| publishedDate | Date |
+
+- Status가 `NOTION_BRIEFING_STATUSES`에 포함되거나 **Blog Ready**가 체크된 행만 노출됩니다. `Missed`, `Drafting`은 기본적으로 제외됩니다.
+- 본문 첫 줄의 `# 제목`은 상세 페이지 헤더와 중복되므로 제거합니다.
+- 두 Notion DB와 마크다운 사이에 slug가 겹치면 빌드가 실패합니다.

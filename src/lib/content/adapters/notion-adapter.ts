@@ -2,9 +2,33 @@ import { Client } from '@notionhq/client'
 import { NotionToMarkdown } from 'notion-to-md'
 import type {
   PageObjectResponse,
+  QueryDatabaseParameters,
   QueryDatabaseResponse,
 } from '@notionhq/client/build/src/api-endpoints'
 import type { ContentSourceAdapter, RawPost } from '@/lib/content/types'
+
+type NotionFilter = NonNullable<QueryDatabaseParameters['filter']>
+
+/**
+ * Describes one Notion database used as a post source.
+ * Each database may name its properties differently, so the mapping lives here.
+ */
+interface NotionSourceConfig {
+  databaseId: string | undefined
+  properties: {
+    title: string
+    slug: string
+    description: string
+    category: string
+    tags: string
+    publishedDate: string
+    coverImage?: string
+  }
+  /** Rows matching this filter are considered published. */
+  publishedFilter: NotionFilter
+  /** Drop a leading `# Title` line when the page body repeats the title. */
+  stripLeadingTitle?: boolean
+}
 
 let _client: Client | null = null
 
@@ -14,20 +38,6 @@ function getClient(): Client {
   }
   return _client
 }
-
-function getDatabaseId(): string {
-  const id = process.env.NOTION_DATABASE_ID
-  if (!id) {
-    throw new Error(
-      'Missing NOTION_DATABASE_ID. See aidlc-docs/construction/blog-v2/notion-setup-guide.md'
-    )
-  }
-  return id
-}
-
-const isConfigured =
-  Boolean(process.env.NOTION_API_KEY) &&
-  Boolean(process.env.NOTION_DATABASE_ID)
 
 function getTextProperty(page: PageObjectResponse, name: string): string {
   const prop = page.properties[name]
@@ -81,34 +91,53 @@ function isFullPage(
   return result.object === 'page' && 'properties' in result
 }
 
-function mapPageToRawPost(page: PageObjectResponse): RawPost {
+export function mapPageToRawPost(
+  page: PageObjectResponse,
+  props: NotionSourceConfig['properties']
+): RawPost {
   return {
     id: page.id,
-    title: getTextProperty(page, 'Title'),
-    slug: getTextProperty(page, 'Slug'),
-    description: getTextProperty(page, 'Description'),
-    category: getSelectProperty(page, 'Category'),
-    tags: getMultiSelectProperty(page, 'Tags'),
-    publishedDate: getDateProperty(page, 'PublishedDate'),
-    coverImage: getUrlProperty(page, 'CoverImage'),
+    title: getTextProperty(page, props.title),
+    slug: getTextProperty(page, props.slug),
+    description: getTextProperty(page, props.description),
+    category: getSelectProperty(page, props.category),
+    tags: getMultiSelectProperty(page, props.tags),
+    publishedDate: getDateProperty(page, props.publishedDate),
+    coverImage: props.coverImage ? getUrlProperty(page, props.coverImage) : null,
     source: 'notion',
   }
 }
 
-async function fetchAllPublishedPages(): Promise<PageObjectResponse[]> {
+export function stripLeadingTitle(markdown: string, title: string): string {
+  const match = markdown.match(/^\s*#\s+(.+?)\s*(?:\n|$)/)
+  if (match && match[1].trim() === title.trim()) {
+    return markdown.slice(match[0].length).replace(/^\s+/, '')
+  }
+  return markdown
+}
+
+/** Query every matching row, following Notion's 100-row pagination. */
+async function queryAll(
+  databaseId: string,
+  filter: NotionFilter,
+  sorts?: QueryDatabaseParameters['sorts']
+): Promise<PageObjectResponse[]> {
   const notion = getClient()
-  const databaseId = getDatabaseId()
+  const pages: PageObjectResponse[] = []
+  let cursor: string | undefined
 
-  const response = await notion.databases.query({
-    database_id: databaseId,
-    filter: {
-      property: 'Status',
-      select: { equals: 'Published' },
-    },
-    sorts: [{ property: 'PublishedDate', direction: 'descending' }],
-  })
+  do {
+    const response = await notion.databases.query({
+      database_id: databaseId,
+      filter,
+      sorts,
+      start_cursor: cursor,
+    })
+    pages.push(...response.results.filter(isFullPage))
+    cursor = response.has_more ? response.next_cursor ?? undefined : undefined
+  } while (cursor)
 
-  return response.results.filter(isFullPage)
+  return pages
 }
 
 async function getPostContent(pageId: string): Promise<string> {
@@ -117,36 +146,90 @@ async function getPostContent(pageId: string): Promise<string> {
   return n2m.toMarkdownString(mdBlocks).parent
 }
 
-export const notionAdapter: ContentSourceAdapter = {
-  source: 'notion',
-  enabled: isConfigured,
+export function createNotionAdapter(config: NotionSourceConfig): ContentSourceAdapter {
+  const { databaseId, properties: props, publishedFilter } = config
+  const isConfigured = Boolean(process.env.NOTION_API_KEY) && Boolean(databaseId)
 
-  async listPosts(): Promise<RawPost[]> {
-    if (!isConfigured) return []
-    const pages = await fetchAllPublishedPages()
-    return pages.map(mapPageToRawPost)
+  return {
+    source: 'notion',
+    enabled: isConfigured,
+
+    async listPosts(): Promise<RawPost[]> {
+      if (!isConfigured) return []
+      const pages = await queryAll(databaseId!, publishedFilter, [
+        { property: props.publishedDate, direction: 'descending' },
+      ])
+      return pages.map((page) => mapPageToRawPost(page, props))
+    },
+
+    async getPostBySlug(slug: string): Promise<RawPost | null> {
+      if (!isConfigured) return null
+
+      const pages = await queryAll(databaseId!, {
+        and: [{ property: props.slug, rich_text: { equals: slug } }, publishedFilter],
+      } as NotionFilter)
+
+      const page = pages[0]
+      if (!page) return null
+
+      const post = mapPageToRawPost(page, props)
+      let content = await getPostContent(page.id)
+      if (config.stripLeadingTitle) {
+        content = stripLeadingTitle(content, post.title)
+      }
+      return { ...post, content }
+    },
+  }
+}
+
+/** "Blog Posts" database — see aidlc-docs/construction/blog-v2/notion-setup-guide.md */
+export const notionAdapter = createNotionAdapter({
+  databaseId: process.env.NOTION_DATABASE_ID,
+  properties: {
+    title: 'Title',
+    slug: 'Slug',
+    description: 'Description',
+    category: 'Category',
+    tags: 'Tags',
+    publishedDate: 'PublishedDate',
+    coverImage: 'CoverImage',
   },
+  publishedFilter: { property: 'Status', select: { equals: 'Published' } },
+})
 
-  async getPostBySlug(slug: string): Promise<RawPost | null> {
-    if (!isConfigured) return null
+const BRIEFING_STATUSES = (process.env.NOTION_BRIEFING_STATUSES ?? 'Researched,Published')
+  .split(',')
+  .map((s) => s.trim())
+  .filter(Boolean)
 
-    const notion = getClient()
-    const databaseId = getDatabaseId()
-
-    const response = await notion.databases.query({
-      database_id: databaseId,
-      filter: {
-        and: [
-          { property: 'Slug', rich_text: { equals: slug } },
-          { property: 'Status', select: { equals: 'Published' } },
+/**
+ * "AI Web Dev Researches" database (AI 웹 개발 기술 브리핑).
+ * A row is published when its Status is in NOTION_BRIEFING_STATUSES or "Blog Ready" is checked,
+ * and it has a Slug.
+ */
+export const notionBriefingAdapter = createNotionAdapter({
+  databaseId: process.env.NOTION_BRIEFING_DATABASE_ID,
+  properties: {
+    title: 'Name',
+    slug: 'Slug',
+    description: 'Description',
+    category: 'Category',
+    tags: 'Tags',
+    publishedDate: 'Date',
+  },
+  publishedFilter: {
+    and: [
+      { property: 'Slug', rich_text: { is_not_empty: true } },
+      {
+        or: [
+          ...BRIEFING_STATUSES.map((status) => ({
+            property: 'Status',
+            select: { equals: status },
+          })),
+          { property: 'Blog Ready', checkbox: { equals: true } },
         ],
       },
-    })
-
-    const page = response.results.filter(isFullPage)[0]
-    if (!page) return null
-
-    const content = await getPostContent(page.id)
-    return { ...mapPageToRawPost(page), content }
-  },
-}
+    ],
+  } as NotionFilter,
+  stripLeadingTitle: true,
+})
