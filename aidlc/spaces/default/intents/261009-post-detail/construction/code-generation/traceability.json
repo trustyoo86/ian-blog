@@ -1,0 +1,31 @@
+{
+  "stage": "code-generation",
+  "upstream_ids": [
+    "FR1.1", "FR1.2", "FR1.3",
+    "FR2.1", "FR2.2", "FR2.3",
+    "FR3.1", "FR3.2", "FR3.3", "FR3.4", "FR3.5", "FR3.6", "FR3.7", "FR3.8",
+    "NFR1", "NFR2", "NFR3", "NFR4", "NFR5", "NFR6"
+  ],
+  "coverage": [
+    { "id": "FR1.1", "status": "OK", "target": "src/components/blog/PostCard.tsx" },
+    { "id": "FR1.2", "status": "OK", "target": "src/components/blog/PostCard.tsx" },
+    { "id": "FR1.3", "status": "OK", "target": "src/components/blog/PostCard.tsx" },
+    { "id": "FR2.1", "status": "OK", "target": "src/components/blog/PostCard.tsx" },
+    { "id": "FR2.2", "status": "OK", "target": "src/components/blog/PostCard.test.tsx" },
+    { "id": "FR2.3", "status": "OK", "target": "src/components/blog/PostCard.tsx" },
+    { "id": "FR3.1", "status": "OK", "target": "src/app/blog/[slug]/page.tsx" },
+    { "id": "FR3.2", "status": "OK", "target": "src/app/blog/[slug]/page.tsx" },
+    { "id": "FR3.3", "status": "OK", "target": "src/components/blog/PostContent.tsx" },
+    { "id": "FR3.4", "status": "OK", "target": "src/components/blog/PostContent.tsx" },
+    { "id": "FR3.5", "status": "OK", "target": "src/components/blog/PostContent.tsx" },
+    { "id": "FR3.6", "status": "OK", "target": "src/app/blog/[slug]/page.test.tsx" },
+    { "id": "FR3.7", "status": "OK", "target": "src/app/blog/[slug]/page.tsx" },
+    { "id": "FR3.8", "status": "OK", "target": "src/app/blog/[slug]/page.tsx" },
+    { "id": "NFR1", "status": "OK", "target": "vitest.config.ts" },
+    { "id": "NFR2", "status": "OK", "target": "package.json" },
+    { "id": "NFR3", "status": "OK", "target": "src/components/blog/PostContent.test.tsx" },
+    { "id": "NFR4", "status": "OK", "target": "src/lib/content/adapters/notion-adapter.ts" },
+    { "id": "NFR5", "status": "OK", "target": "src/components/blog/PostCard.tsx" },
+    { "id": "NFR6", "status": "OK", "target": "src/styles/globals.css" }
+  ]
+}

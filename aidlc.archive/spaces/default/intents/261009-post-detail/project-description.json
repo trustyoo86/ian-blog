@@ -1,0 +1,1 @@
+"메인 화면의 각 item의 넓이를 키우고, 클릭시 detail 화면에 notion의 내용이 포함되는 기능을 추가하려 함. 기존에 v1의 aidlc state 등이 남아있다면 v2의 harness 기능과 상충하는 경우 v2의 harness를 우선하여 기능을 작업"

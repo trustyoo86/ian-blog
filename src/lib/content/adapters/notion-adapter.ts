@@ -165,9 +165,14 @@ export function createNotionAdapter(config: NotionSourceConfig): ContentSourceAd
     async getPostBySlug(slug: string): Promise<RawPost | null> {
       if (!isConfigured) return null
 
-      const pages = await queryAll(databaseId!, {
-        and: [{ property: props.slug, rich_text: { equals: slug } }, publishedFilter],
-      } as NotionFilter)
+      // Notion allows at most two levels of compound-filter nesting, so merge the
+      // slug condition into an existing top-level `and` instead of wrapping it.
+      const slugFilter = { property: props.slug, rich_text: { equals: slug } }
+      const filter =
+        'and' in publishedFilter
+          ? { and: [slugFilter, ...publishedFilter.and] }
+          : { and: [slugFilter, publishedFilter] }
+      const pages = await queryAll(databaseId!, filter as NotionFilter)
 
       const page = pages[0]
       if (!page) return null

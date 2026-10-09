@@ -1,0 +1,16 @@
+[
+  {
+    "uuid": "01a12126-609b-7eec-8a46-3f368b5637c1",
+    "slug": "default",
+    "dirName": "261009-default",
+    "status": "in-flight"
+  },
+  {
+    "uuid": "01a12126-60f8-7865-8103-a05d49923aca",
+    "slug": "post-detail",
+    "dirName": "261009-post-detail",
+    "scope": "express",
+    "status": "in-flight",
+    "request": "f257516e"
+  }
+]
