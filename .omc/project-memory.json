@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1779203466075,
+  "lastScanned": 1791556060827,
   "projectRoot": "/Users/ian/workspace/ian-blog",
   "techStack": {
     "languages": [
@@ -78,7 +78,7 @@
       "path": "aidlc-docs",
       "purpose": null,
       "fileCount": 3,
-      "lastAccessed": 1779203466063,
+      "lastAccessed": 1791556060815,
       "keyFiles": [
         "aidlc-state.md",
         "audit.md",
@@ -89,14 +89,14 @@
       "path": "content",
       "purpose": null,
       "fileCount": 0,
-      "lastAccessed": 1779203466063,
+      "lastAccessed": 1791556060816,
       "keyFiles": []
     },
     "out": {
       "path": "out",
       "purpose": "Build output",
       "fileCount": 3,
-      "lastAccessed": 1779203466064,
+      "lastAccessed": 1791556060817,
       "keyFiles": [
         "404.html",
         "index.html",
@@ -107,14 +107,14 @@
       "path": "src",
       "purpose": "Source code",
       "fileCount": 0,
-      "lastAccessed": 1779203466065,
+      "lastAccessed": 1791556060817,
       "keyFiles": []
     },
     "src/app": {
       "path": "src/app",
       "purpose": "Application code",
       "fileCount": 2,
-      "lastAccessed": 1779203466066,
+      "lastAccessed": 1791556060818,
       "keyFiles": [
         "layout.tsx",
         "page.tsx"
@@ -124,14 +124,14 @@
       "path": "src/components",
       "purpose": "UI components",
       "fileCount": 0,
-      "lastAccessed": 1779203466066,
+      "lastAccessed": 1791556060818,
       "keyFiles": []
     },
     "src/lib": {
       "path": "src/lib",
       "purpose": "Library code",
       "fileCount": 1,
-      "lastAccessed": 1779203466066,
+      "lastAccessed": 1791556060818,
       "keyFiles": [
         "utils.ts"
       ]
@@ -140,12 +140,19 @@
       "path": "src/types",
       "purpose": "Type definitions",
       "fileCount": 1,
-      "lastAccessed": 1779203466066,
+      "lastAccessed": 1791556060818,
       "keyFiles": [
         "index.ts"
       ]
     }
   },
-  "hotPaths": [],
+  "hotPaths": [
+    {
+      "path": "CONTEXT.md",
+      "accessCount": 1,
+      "lastAccessed": 1782226147370,
+      "type": "file"
+    }
+  ],
   "userDirectives": []
 }
