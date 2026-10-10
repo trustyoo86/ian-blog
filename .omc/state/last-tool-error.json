@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"echo \\\"=== install tail ===\\\" && tail -6 /private/tmp/claude-501/-Users-ian-workspace-ian-blog/cd88d6e5-c44f-4aa3-8b14-d9dab89b9614/tasks/bk4qy36s2.output 2>/dev/null; echo \\\"=== shiki 단일 ...",
+  "error": "Exit code 1\n=== install tail ===\n├─ github-slugger@2.0.0\n├─ hast-util-heading-rank@3.0.0\n├─ hast-util-to-string@3.0.1\n├─ rehype-slug@6.0.0\n└─ rehype-stringify@10.0.1\nDone in 2.12s.\n=== shiki 단일 버전 확인 ===\n[yarn] shiki dirs:\nnode_modules/@shikijs/core\nnode_modules/@shikijs/engine-javascript\nnode_modules/@shikijs/engine-oniguruma\nnode_modules/@shikijs/langs\nnode_modules/@shikijs/rehype\nnode_modules/@shikijs/themes\nnode_modules/@shikijs/types\nnode_modules/@shikijs/vscode-textmate\nnode_modules/shiki\n...",
+  "timestamp": "2026-06-01T14:20:01.494Z",
+  "retry_count": 1
+}

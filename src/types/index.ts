@@ -14,6 +14,12 @@ export interface BlogPost {
   content?: string // Markdown string — populated only on detail page
 }
 
+export interface TocItem {
+  id: string
+  text: string
+  depth: 2 | 3
+}
+
 export interface SiteConfig {
   name: string
   url: string

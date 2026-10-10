@@ -1,23 +1,17 @@
-import Link from "next/link";
-import Image from "next/image";
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
-import { PostContent } from "@/components/blog/PostContent";
-import { TagBadge } from "@/components/blog/TagBadge";
+import { MarkdownContent } from "@/components/blog/MarkdownContent";
+import { PostHeader } from "@/components/blog/PostHeader";
+import { TableOfContents } from "@/components/blog/TableOfContents";
+import { renderMarkdown } from "@/lib/content/markdown-render";
 import { getAllSlugs, getPostBySlug } from "@/lib/content/repository";
-import { formatDate } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 
-interface PostPageProps {
+interface BlogPostPageProps {
   params: { slug: string };
 }
 
-// Static export: only slugs returned by generateStaticParams exist.
-export const dynamicParams = false;
-
-/**
- * Next may hand over a percent-encoded segment for non-ASCII slugs; decode it
- * when it is valid encoding, otherwise use it as-is.
- */
 function resolveSlug(rawSlug: string): string {
   try {
     return decodeURIComponent(rawSlug);
@@ -26,33 +20,55 @@ function resolveSlug(rawSlug: string): string {
   }
 }
 
-// Repository errors (Notion API failure, 429, slug collisions) are intentionally
-// not caught here: they must fail the build instead of shipping a broken page.
-export async function generateStaticParams(): Promise<PostPageProps["params"][]> {
+export const dynamicParams = false;
+
+export async function generateStaticParams(): Promise<
+  BlogPostPageProps["params"][]
+> {
   const slugs = await getAllSlugs();
   return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
   params,
-}: PostPageProps): Promise<Metadata> {
+}: BlogPostPageProps): Promise<Metadata> {
   const post = await getPostBySlug(resolveSlug(params.slug));
   if (!post) return {};
+
+  const images = post.coverImage ? [post.coverImage] : undefined;
 
   return {
     title: post.title,
     description: post.description || undefined,
+    openGraph: {
+      title: post.title,
+      description: post.description || undefined,
+      type: "article",
+      publishedTime: post.publishedDate,
+      images,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.description || undefined,
+      images,
+    },
   };
 }
 
-/** Post detail page rendering the full Markdown/Notion body. */
-export default async function PostPage({ params }: PostPageProps) {
+export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const post = await getPostBySlug(resolveSlug(params.slug));
   if (!post) notFound();
 
+  const { html, toc } = await renderMarkdown(post.content ?? "");
+  const hasToc = toc.length > 0;
+
   return (
-    <article
-      className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:py-20"
+    <div
+      className={cn(
+        "mx-auto px-4 py-12 sm:px-6 lg:py-16",
+        hasToc ? "max-w-5xl" : "max-w-3xl",
+      )}
       data-testid="post-detail"
     >
       <Link
@@ -64,58 +80,20 @@ export default async function PostPage({ params }: PostPageProps) {
         Back to home
       </Link>
 
-      <header className="mb-10 space-y-6 border-b border-border pb-10">
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-xs uppercase tracking-[0.14em] text-muted-foreground">
-          <time dateTime={post.publishedDate} data-testid="post-detail-date">
-            {formatDate(post.publishedDate)}
-          </time>
-          <span aria-hidden="true">/</span>
-          <span>{post.category}</span>
-          {post.readingTime && (
-            <>
-              <span aria-hidden="true">/</span>
-              <span>{post.readingTime} min</span>
-            </>
-          )}
-        </div>
+      <PostHeader post={post} />
 
-        <h1 className="font-serif text-4xl font-normal leading-tight text-foreground sm:text-5xl">
-          {post.title}
-        </h1>
-
-        {post.description && (
-          <p className="text-lg leading-8 text-muted-foreground">
-            {post.description}
-          </p>
+      <div
+        className={cn(
+          hasToc && "lg:grid lg:grid-cols-[minmax(0,1fr)_15rem] lg:gap-10",
         )}
-
-        {post.tags.length > 0 && (
-          <div className="flex flex-wrap gap-2">
-            {post.tags.map((tag) => (
-              <TagBadge
-                key={tag}
-                tag={tag}
-                href={`/tags/${encodeURIComponent(tag)}`}
-              />
-            ))}
-          </div>
+      >
+        <MarkdownContent html={html} />
+        {hasToc && (
+          <aside className="hidden self-start lg:block">
+            <TableOfContents items={toc} />
+          </aside>
         )}
-      </header>
-
-      {post.coverImage && (
-        <div className="relative mb-10 aspect-[16/9] w-full overflow-hidden rounded-[3px] border border-border">
-          <Image
-            src={post.coverImage}
-            alt={post.title}
-            fill
-            priority
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, 768px"
-          />
-        </div>
-      )}
-
-      <PostContent content={post.content ?? ""} />
-    </article>
+      </div>
+    </div>
   );
 }

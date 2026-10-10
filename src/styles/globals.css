@@ -57,12 +57,32 @@
   }
 }
 
-/* Code highlighting: shiki emits light colors inline plus --shiki-dark* vars */
-.dark .shiki,
-.dark .shiki span {
-  color: var(--shiki-dark) !important;
-  background-color: var(--shiki-dark-bg) !important;
-  font-style: var(--shiki-dark-font-style) !important;
-  font-weight: var(--shiki-dark-font-weight) !important;
-  text-decoration: var(--shiki-dark-text-decoration) !important;
+/* ─── Shiki dual-theme code blocks ─── */
+/*
+  @shikijs/rehype with `defaultColor: false` emits per-theme CSS variables
+  keyed by the theme names (light/dark): --shiki-light / --shiki-light-bg and
+  --shiki-dark / --shiki-dark-bg. Default (light) colors below; dark overrides
+  apply under the .dark class (set on <html> by the layout theme script).
+*/
+@layer base {
+  .shiki,
+  .shiki span {
+    color: var(--shiki-light);
+    background-color: var(--shiki-light-bg);
+  }
+
+  .dark .shiki,
+  .dark .shiki span {
+    color: var(--shiki-dark) !important;
+    background-color: var(--shiki-dark-bg) !important;
+    font-style: var(--shiki-dark-font-style) !important;
+    font-weight: var(--shiki-dark-font-weight) !important;
+    text-decoration: var(--shiki-dark-text-decoration) !important;
+  }
+
+  /* Let shiki own the code block surface; drop typography's default <pre> chrome. */
+  .prose :where(pre):not(:where([class~="not-prose"] *)) {
+    background-color: transparent;
+    padding: 1rem;
+  }
 }

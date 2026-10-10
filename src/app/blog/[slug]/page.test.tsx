@@ -13,15 +13,15 @@ vi.mock("next/navigation", () => ({
   }),
 }));
 
-// PostContent is an async server component (covered by its own tests); the
-// client renderer used here cannot await it, so a sync stand-in is used.
-vi.mock("@/components/blog/PostContent", () => ({
-  PostContent: ({ content }: { content: string }) => (
-    <div data-testid="post-content">{content}</div>
-  ),
+vi.mock("@/lib/content/markdown-render", () => ({
+  renderMarkdown: vi.fn(async (content: string) => ({
+    html: `<p>${content}</p>`,
+    toc: [],
+  })),
 }));
 
 import { getAllSlugs, getPostBySlug } from "@/lib/content/repository";
+import { renderMarkdown } from "@/lib/content/markdown-render";
 import { notFound } from "next/navigation";
 import PostPage, {
   dynamicParams,
@@ -49,6 +49,10 @@ function buildPost(overrides: Partial<BlogPost> = {}): BlogPost {
 beforeEach(() => {
   vi.mocked(getAllSlugs).mockReset();
   vi.mocked(getPostBySlug).mockReset();
+  vi.mocked(renderMarkdown).mockImplementation(async (content) => ({
+    html: `<p>${content}</p>`,
+    toc: [],
+  }));
   vi.mocked(notFound).mockClear();
 });
 
@@ -56,7 +60,10 @@ afterEach(() => cleanup());
 
 describe("blog/[slug] page", () => {
   it("pre-renders one route per published slug (FR3.1)", async () => {
-    vi.mocked(getAllSlugs).mockResolvedValue(["welcome-to-blog", "ai-briefing"]);
+    vi.mocked(getAllSlugs).mockResolvedValue([
+      "welcome-to-blog",
+      "ai-briefing",
+    ]);
 
     await expect(generateStaticParams()).resolves.toEqual([
       { slug: "welcome-to-blog" },
@@ -72,7 +79,9 @@ describe("blog/[slug] page", () => {
       "NEXT_NOT_FOUND",
     );
     expect(notFound).toHaveBeenCalledTimes(1);
-    await expect(generateMetadata({ params: { slug: "missing" } })).resolves.toEqual({});
+    await expect(
+      generateMetadata({ params: { slug: "missing" } }),
+    ).resolves.toEqual({});
   });
 
   it("propagates repository errors instead of hiding them (NFR4)", async () => {
@@ -84,11 +93,23 @@ describe("blog/[slug] page", () => {
   it("renders metadata, title, body and back link for a post (FR3.2, FR3.7)", async () => {
     vi.mocked(getPostBySlug).mockResolvedValue(buildPost());
 
-    await expect(
-      generateMetadata({ params: { slug: "detail-page" } }),
-    ).resolves.toEqual({
+    const metadata = await generateMetadata({
+      params: { slug: "detail-page" },
+    });
+    expect(metadata).toMatchObject({
       title: "Detail Page Title",
       description: "Detail page description.",
+      openGraph: {
+        title: "Detail Page Title",
+        description: "Detail page description.",
+        type: "article",
+        publishedTime: "2026-10-01T00:00:00.000Z",
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: "Detail Page Title",
+        description: "Detail page description.",
+      },
     });
 
     render(await PostPage({ params: { slug: "detail-page" } }));
@@ -101,6 +122,9 @@ describe("blog/[slug] page", () => {
       "Body paragraph from Notion.",
     );
     expect(screen.getByRole("link", { name: "nextjs" })).toBeInTheDocument();
-    expect(screen.getByTestId("back-to-home-link")).toHaveAttribute("href", "/");
+    expect(screen.getByTestId("back-to-home-link")).toHaveAttribute(
+      "href",
+      "/",
+    );
   });
 });
