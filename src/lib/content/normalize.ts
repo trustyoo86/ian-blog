@@ -29,23 +29,23 @@ export function normalize(raw: RawPost): BlogPost {
 }
 
 /**
- * Detect slug collisions across multiple sources.
- * Throws SlugCollisionError if any slug appears in more than one source.
+ * Detect slug collisions across all adapters (including two Notion databases).
+ * Throws SlugCollisionError if any slug appears more than once.
  */
 export function assertNoSlugCollisions(rawPosts: RawPost[]): void {
-  const bySlug = new Map<string, Set<ContentSource>>()
+  const bySlug = new Map<string, ContentSource[]>()
   for (const post of rawPosts) {
     if (!post.slug) {
       throw new Error(`RawPost missing slug: id=${post.id}`)
     }
-    const set = bySlug.get(post.slug) ?? new Set<ContentSource>()
-    set.add(post.source)
-    bySlug.set(post.slug, set)
+    const sources = bySlug.get(post.slug) ?? []
+    sources.push(post.source)
+    bySlug.set(post.slug, sources)
   }
 
   for (const [slug, sources] of bySlug) {
-    if (sources.size > 1) {
-      throw new SlugCollisionError(slug, Array.from(sources))
+    if (sources.length > 1) {
+      throw new SlugCollisionError(slug, sources)
     }
   }
 }

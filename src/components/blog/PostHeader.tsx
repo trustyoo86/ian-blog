@@ -1,10 +1,10 @@
-import Image from 'next/image'
-import { formatDate } from '@/lib/utils'
-import { TagBadge } from '@/components/blog/TagBadge'
-import type { BlogPost } from '@/types'
+import Image from "next/image";
+import { formatDate } from "@/lib/utils";
+import { TagBadge } from "@/components/blog/TagBadge";
+import type { BlogPost } from "@/types";
 
 interface PostHeaderProps {
-  post: BlogPost
+  post: BlogPost;
 }
 
 export function PostHeader({ post }: PostHeaderProps) {
@@ -31,6 +31,12 @@ export function PostHeader({ post }: PostHeaderProps) {
         {post.title}
       </h1>
 
+      {post.description && (
+        <p className="text-lg leading-8 text-muted-foreground">
+          {post.description}
+        </p>
+      )}
+
       <div className="flex items-center gap-3 text-sm text-muted-foreground">
         <time dateTime={post.publishedDate} data-testid="post-header-date">
           {formatDate(post.publishedDate)}
@@ -46,10 +52,14 @@ export function PostHeader({ post }: PostHeaderProps) {
       {post.tags.length > 0 && (
         <div className="flex flex-wrap gap-1.5">
           {post.tags.map((tag) => (
-            <TagBadge key={tag} tag={tag} href={`/tags/${encodeURIComponent(tag)}`} />
+            <TagBadge
+              key={tag}
+              tag={tag}
+              href={`/tags/${encodeURIComponent(tag)}`}
+            />
           ))}
         </div>
       )}
     </header>
-  )
+  );
 }

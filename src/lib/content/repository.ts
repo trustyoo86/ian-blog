@@ -1,10 +1,14 @@
 import type { BlogPost } from '@/types'
 import { markdownAdapter } from './adapters/markdown-adapter'
-import { notionAdapter } from './adapters/notion-adapter'
+import { notionAdapter, notionBriefingAdapter } from './adapters/notion-adapter'
 import { assertNoSlugCollisions, normalize, sortByPublishedDateDesc } from './normalize'
 import type { ContentSourceAdapter, RawPost } from './types'
 
-const ADAPTERS: ContentSourceAdapter[] = [markdownAdapter, notionAdapter]
+const ADAPTERS: ContentSourceAdapter[] = [
+  markdownAdapter,
+  notionAdapter,
+  notionBriefingAdapter,
+]
 
 async function listAllRawPosts(): Promise<RawPost[]> {
   const enabledAdapters = ADAPTERS.filter((a) => a.enabled)

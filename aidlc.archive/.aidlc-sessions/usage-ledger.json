@@ -1,0 +1,419 @@
+{
+  "schemaVersion": 3,
+  "cursors": {
+    "/Users/ian/.claude/projects/-Users-ian-workspace-ian-blog/f3a6f274-71da-444d-a17d-ddb61136d10f.jsonl": {
+      "lastUuid": "c7cd1cea-7582-496c-9fcc-03d25f62a5e8",
+      "lastTimestamp": "2026-10-09T14:53:00.144Z",
+      "lastMessageId": "msg_011CfrrSsbVnp8XadftSsTdd",
+      "byteOffset": 884842
+    }
+  },
+  "totals": {
+    "tokens": {
+      "input": 43,
+      "output": 8030,
+      "cacheCreate5m": 0,
+      "cacheCreate1h": 144237,
+      "cacheRead": 2148180
+    },
+    "usd": 1.7443039999999994
+  },
+  "byStage": {
+    "reverse-engineering": {
+      "totals": {
+        "tokens": {
+          "input": 2,
+          "output": 288,
+          "cacheCreate5m": 0,
+          "cacheCreate1h": 400,
+          "cacheRead": 123208
+        },
+        "usd": 0.0336096
+      },
+      "byModel": {
+        "opus-5-5": {
+          "tokens": {
+            "input": 2,
+            "output": 288,
+            "cacheCreate5m": 0,
+            "cacheCreate1h": 400,
+            "cacheRead": 123208
+          },
+          "usd": 0.0336096
+        }
+      },
+      "byAgent": {
+        "main": {
+          "tokens": {
+            "input": 2,
+            "output": 288,
+            "cacheCreate5m": 0,
+            "cacheCreate1h": 400,
+            "cacheRead": 123208
+          },
+          "usd": 0.0336096
+        }
+      }
+    },
+    "CONSTRUCTION - Code Generation (design-refresh 완료, 사용자 리뷰 대기)": {
+      "totals": {
+        "tokens": {
+          "input": 17,
+          "output": 2385,
+          "cacheCreate5m": 0,
+          "cacheCreate1h": 12583,
+          "cacheRead": 1037230
+        },
+        "usd": 0.355878
+      },
+      "byModel": {
+        "opus-5-5": {
+          "tokens": {
+            "input": 17,
+            "output": 2385,
+            "cacheCreate5m": 0,
+            "cacheCreate1h": 12583,
+            "cacheRead": 1037230
+          },
+          "usd": 0.355878
+        }
+      },
+      "byAgent": {
+        "main": {
+          "tokens": {
+            "input": 17,
+            "output": 2385,
+            "cacheCreate5m": 0,
+            "cacheCreate1h": 12583,
+            "cacheRead": 1037230
+          },
+          "usd": 0.355878
+        }
+      }
+    }
+  },
+  "byModel": {
+    "opus-5-5": {
+      "tokens": {
+        "input": 43,
+        "output": 8030,
+        "cacheCreate5m": 0,
+        "cacheCreate1h": 144237,
+        "cacheRead": 2148180
+      },
+      "usd": 1.7443039999999994
+    }
+  },
+  "byAgent": {
+    "main": {
+      "tokens": {
+        "input": 43,
+        "output": 8030,
+        "cacheCreate5m": 0,
+        "cacheCreate1h": 144237,
+        "cacheRead": 2148180
+      },
+      "usd": 1.7443039999999994
+    }
+  },
+  "workflows": {
+    "record:default/legacy": {
+      "totals": {
+        "tokens": {
+          "input": 24,
+          "output": 5357,
+          "cacheCreate5m": 0,
+          "cacheCreate1h": 131254,
+          "cacheRead": 987742
+        },
+        "usd": 1.3548163999999998
+      },
+      "byStage": {},
+      "byModel": {
+        "opus-5-5": {
+          "tokens": {
+            "input": 24,
+            "output": 5357,
+            "cacheCreate5m": 0,
+            "cacheCreate1h": 131254,
+            "cacheRead": 987742
+          },
+          "usd": 1.3548163999999998
+        }
+      },
+      "byAgent": {
+        "main": {
+          "tokens": {
+            "input": 24,
+            "output": 5357,
+            "cacheCreate5m": 0,
+            "cacheCreate1h": 131254,
+            "cacheRead": 987742
+          },
+          "usd": 1.3548163999999998
+        }
+      },
+      "sessions": {
+        "transcript:/Users/ian/.claude/projects/-Users-ian-workspace-ian-blog/f3a6f274-71da-444d-a17d-ddb61136d10f.jsonl": {
+          "totals": {
+            "tokens": {
+              "input": 24,
+              "output": 5357,
+              "cacheCreate5m": 0,
+              "cacheCreate1h": 131254,
+              "cacheRead": 987742
+            },
+            "usd": 1.3548163999999998
+          },
+          "byStage": {},
+          "byModel": {
+            "opus-5-5": {
+              "tokens": {
+                "input": 24,
+                "output": 5357,
+                "cacheCreate5m": 0,
+                "cacheCreate1h": 131254,
+                "cacheRead": 987742
+              },
+              "usd": 1.3548163999999998
+            }
+          },
+          "byAgent": {
+            "main": {
+              "tokens": {
+                "input": 24,
+                "output": 5357,
+                "cacheCreate5m": 0,
+                "cacheCreate1h": 131254,
+                "cacheRead": 987742
+              },
+              "usd": 1.3548163999999998
+            }
+          }
+        }
+      }
+    },
+    "intent:01a12126-609b-7eec-8a46-3f368b5637c1": {
+      "totals": {
+        "tokens": {
+          "input": 19,
+          "output": 2673,
+          "cacheCreate5m": 0,
+          "cacheCreate1h": 12983,
+          "cacheRead": 1160438
+        },
+        "usd": 0.38948760000000004
+      },
+      "byStage": {
+        "reverse-engineering": {
+          "totals": {
+            "tokens": {
+              "input": 2,
+              "output": 288,
+              "cacheCreate5m": 0,
+              "cacheCreate1h": 400,
+              "cacheRead": 123208
+            },
+            "usd": 0.0336096
+          },
+          "byModel": {
+            "opus-5-5": {
+              "tokens": {
+                "input": 2,
+                "output": 288,
+                "cacheCreate5m": 0,
+                "cacheCreate1h": 400,
+                "cacheRead": 123208
+              },
+              "usd": 0.0336096
+            }
+          },
+          "byAgent": {
+            "main": {
+              "tokens": {
+                "input": 2,
+                "output": 288,
+                "cacheCreate5m": 0,
+                "cacheCreate1h": 400,
+                "cacheRead": 123208
+              },
+              "usd": 0.0336096
+            }
+          }
+        },
+        "CONSTRUCTION - Code Generation (design-refresh 완료, 사용자 리뷰 대기)": {
+          "totals": {
+            "tokens": {
+              "input": 17,
+              "output": 2385,
+              "cacheCreate5m": 0,
+              "cacheCreate1h": 12583,
+              "cacheRead": 1037230
+            },
+            "usd": 0.355878
+          },
+          "byModel": {
+            "opus-5-5": {
+              "tokens": {
+                "input": 17,
+                "output": 2385,
+                "cacheCreate5m": 0,
+                "cacheCreate1h": 12583,
+                "cacheRead": 1037230
+              },
+              "usd": 0.355878
+            }
+          },
+          "byAgent": {
+            "main": {
+              "tokens": {
+                "input": 17,
+                "output": 2385,
+                "cacheCreate5m": 0,
+                "cacheCreate1h": 12583,
+                "cacheRead": 1037230
+              },
+              "usd": 0.355878
+            }
+          }
+        }
+      },
+      "byModel": {
+        "opus-5-5": {
+          "tokens": {
+            "input": 19,
+            "output": 2673,
+            "cacheCreate5m": 0,
+            "cacheCreate1h": 12983,
+            "cacheRead": 1160438
+          },
+          "usd": 0.38948760000000004
+        }
+      },
+      "byAgent": {
+        "main": {
+          "tokens": {
+            "input": 19,
+            "output": 2673,
+            "cacheCreate5m": 0,
+            "cacheCreate1h": 12983,
+            "cacheRead": 1160438
+          },
+          "usd": 0.38948760000000004
+        }
+      },
+      "sessions": {
+        "transcript:/Users/ian/.claude/projects/-Users-ian-workspace-ian-blog/f3a6f274-71da-444d-a17d-ddb61136d10f.jsonl": {
+          "totals": {
+            "tokens": {
+              "input": 19,
+              "output": 2673,
+              "cacheCreate5m": 0,
+              "cacheCreate1h": 12983,
+              "cacheRead": 1160438
+            },
+            "usd": 0.38948760000000004
+          },
+          "byStage": {
+            "reverse-engineering": {
+              "totals": {
+                "tokens": {
+                  "input": 2,
+                  "output": 288,
+                  "cacheCreate5m": 0,
+                  "cacheCreate1h": 400,
+                  "cacheRead": 123208
+                },
+                "usd": 0.0336096
+              },
+              "byModel": {
+                "opus-5-5": {
+                  "tokens": {
+                    "input": 2,
+                    "output": 288,
+                    "cacheCreate5m": 0,
+                    "cacheCreate1h": 400,
+                    "cacheRead": 123208
+                  },
+                  "usd": 0.0336096
+                }
+              },
+              "byAgent": {
+                "main": {
+                  "tokens": {
+                    "input": 2,
+                    "output": 288,
+                    "cacheCreate5m": 0,
+                    "cacheCreate1h": 400,
+                    "cacheRead": 123208
+                  },
+                  "usd": 0.0336096
+                }
+              }
+            },
+            "CONSTRUCTION - Code Generation (design-refresh 완료, 사용자 리뷰 대기)": {
+              "totals": {
+                "tokens": {
+                  "input": 17,
+                  "output": 2385,
+                  "cacheCreate5m": 0,
+                  "cacheCreate1h": 12583,
+                  "cacheRead": 1037230
+                },
+                "usd": 0.355878
+              },
+              "byModel": {
+                "opus-5-5": {
+                  "tokens": {
+                    "input": 17,
+                    "output": 2385,
+                    "cacheCreate5m": 0,
+                    "cacheCreate1h": 12583,
+                    "cacheRead": 1037230
+                  },
+                  "usd": 0.355878
+                }
+              },
+              "byAgent": {
+                "main": {
+                  "tokens": {
+                    "input": 17,
+                    "output": 2385,
+                    "cacheCreate5m": 0,
+                    "cacheCreate1h": 12583,
+                    "cacheRead": 1037230
+                  },
+                  "usd": 0.355878
+                }
+              }
+            }
+          },
+          "byModel": {
+            "opus-5-5": {
+              "tokens": {
+                "input": 19,
+                "output": 2673,
+                "cacheCreate5m": 0,
+                "cacheCreate1h": 12983,
+                "cacheRead": 1160438
+              },
+              "usd": 0.38948760000000004
+            }
+          },
+          "byAgent": {
+            "main": {
+              "tokens": {
+                "input": 19,
+                "output": 2673,
+                "cacheCreate5m": 0,
+                "cacheCreate1h": 12983,
+                "cacheRead": 1160438
+              },
+              "usd": 0.38948760000000004
+            }
+          }
+        }
+      }
+    }
+  }
+}
