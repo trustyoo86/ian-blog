@@ -11,8 +11,9 @@ interface PostPageProps {
   params: { slug: string };
 }
 
-// Static export: only slugs returned by generateStaticParams exist.
-export const dynamicParams = false;
+// ponytail: no `dynamicParams = false` here. Next 14.2.5 dev with `output: export`
+// maps it to fallback=false and throws "missing generateStaticParams()" on every
+// slug. Static export only emits generated slugs anyway; unknown ones 404.
 
 /**
  * Next may hand over a percent-encoded segment for non-ASCII slugs; decode it

@@ -84,11 +84,20 @@ function buildComponents(highlighter: Highlighter): Components {
         themes: { light: LIGHT_THEME, dark: DARK_THEME },
       });
       return (
-        <div
-          className="not-prose my-6 overflow-x-auto rounded-[3px] border border-border text-sm [&_pre]:p-4"
+        <figure
+          className="not-prose my-6 overflow-hidden rounded-[3px] border border-border"
           data-language={lang}
-          dangerouslySetInnerHTML={{ __html: html }}
-        />
+        >
+          {lang !== FALLBACK_LANG && (
+            <figcaption className="border-b border-border bg-muted px-4 py-1.5 font-mono text-xs uppercase tracking-wide text-muted-foreground">
+              {lang}
+            </figcaption>
+          )}
+          <div
+            className="overflow-x-auto font-mono text-[13px] leading-6 [&_pre]:p-4"
+            dangerouslySetInnerHTML={{ __html: html }}
+          />
+        </figure>
       );
     },
     img({ src, alt }) {
@@ -127,7 +136,7 @@ export async function PostContent({ content, className }: PostContentProps) {
   return (
     <div
       className={cn(
-        "prose max-w-none text-foreground dark:prose-invert prose-headings:font-serif prose-headings:font-normal prose-a:text-foreground prose-a:underline-offset-4 prose-blockquote:border-border prose-blockquote:text-muted-foreground prose-hr:border-border",
+        "prose max-w-none text-foreground dark:prose-invert prose-headings:font-serif prose-headings:font-normal prose-a:text-foreground prose-a:underline-offset-4 prose-blockquote:border-border prose-blockquote:text-muted-foreground prose-hr:border-border prose-code:rounded-[3px] prose-code:bg-muted prose-code:px-1.5 prose-code:py-0.5 prose-code:text-[0.875em] prose-code:font-normal prose-code:before:content-none prose-code:after:content-none",
         className,
       )}
       data-testid="post-content"

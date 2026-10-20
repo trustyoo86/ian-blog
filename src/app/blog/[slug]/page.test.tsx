@@ -24,7 +24,6 @@ vi.mock("@/components/blog/PostContent", () => ({
 import { getAllSlugs, getPostBySlug } from "@/lib/content/repository";
 import { notFound } from "next/navigation";
 import PostPage, {
-  dynamicParams,
   generateMetadata,
   generateStaticParams,
 } from "./page";
@@ -62,7 +61,6 @@ describe("blog/[slug] page", () => {
       { slug: "welcome-to-blog" },
       { slug: "ai-briefing" },
     ]);
-    expect(dynamicParams).toBe(false);
   });
 
   it("calls notFound() for an unknown slug (FR3.6)", async () => {

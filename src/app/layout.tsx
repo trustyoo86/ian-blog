@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Lora } from "next/font/google";
+import { Inter, JetBrains_Mono, Lora } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import "@/styles/globals.css";
@@ -17,6 +17,12 @@ const degularSubstitute = Inter({
 const blancoSubstitute = Lora({
   subsets: ["latin"],
   variable: "--font-blanco",
+  display: "swap",
+});
+
+const mono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-geist-mono",
   display: "swap",
 });
 
@@ -66,7 +72,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${degularSubstitute.variable} ${blancoSubstitute.variable} flex min-h-screen flex-col antialiased`}
+        className={`${degularSubstitute.variable} ${blancoSubstitute.variable} ${mono.variable} flex min-h-screen flex-col antialiased`}
       >
         <Header />
         <main className="flex-1">{children}</main>
